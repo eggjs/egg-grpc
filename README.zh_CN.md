@@ -20,56 +20,106 @@
 [download-image]: https://img.shields.io/npm/dm/egg-grpc.svg?style=flat-square
 [download-url]: https://npmjs.org/package/egg-grpc
 
-<!--
-Description here.
--->
+[grpc](http://www.grpc.io) 的 eggjs 插件
 
-## 依赖说明
+## 安装
 
-### 依赖的 egg 版本
-
-egg-grpc 版本 | egg 1.x
---- | ---
-1.x | 😁
-0.x | ❌
-
-### 依赖的插件
-<!--
-
-如果有依赖其它插件，请在这里特别说明。如
-
-- security
-- multipart
-
--->
-
-## 开启插件
+```bash
+$ npm i egg-grpc --save
+```
 
 ```js
-// config/plugin.js
+// {app_root}/config/plugin.js
 exports.grpc = {
   enable: true,
   package: 'egg-grpc',
 };
 ```
 
-## 使用场景
+## 配置
 
-- Why and What: 描述为什么会有这个插件，它主要在完成一件什么事情。
-尽可能描述详细。
-- How: 描述这个插件是怎样使用的，具体的示例代码，甚至提供一个完整的示例，并给出链接。
+```js
+// {app_root}/config/config.default.js
+exports.grpc = {
+  endpoint: 'localhost:50051',
+  // dir: 'app/proto', // proto 文件目录，相对路径
+  // property: 'grpc', // 默认挂载到 `ctx.grpc.**`
+  // loadOpts: { convertFieldsToCamelCase: true, }, // message field case: `string user_name` -> `userName`
+};
+```
 
-## 详细配置
+更多参数配置见 [config/config.default.js](config/config.default.js)。
 
-请到 [config/config.default.js](config/config.default.js) 查看详细配置项说明。
+## 使用说明
 
-## 单元测试
+示例代码：
 
-<!-- 描述如何在单元测试中使用此插件，例如 schedule 如何触发。无则省略。-->
+```bash
+app/proto
+├── egg
+│   └── test
+│       ├── game.proto
+│       └── message.proto
+├── uc
+│   └── test.proto
+└── share.proto
+```
 
-## 提问交流
+```protobuf
+// app/proto/share.proto
+syntax = "proto3";
 
-请到 [egg issues](https://github.com/eggjs/egg/issues) 异步交流。
+package egg;
+
+message Status {
+  string code = 1;
+  string err_msg = 2;
+}
+
+service ShowCase {
+  rpc Echo(Status) returns (Status) {}
+}
+```
+
+快速开始:
+
+```js
+const client = ctx.grpc.egg.share.showCase;
+const result = yield client.echo({ code: 200 });
+console.log(result);
+```
+
+### 文件目录
+
+- 默认从 `app/proto` 目录加载 proto 文件。
+- 目录仅用于文件管理，不影响到挂载到 `ctx` 和 `app` 上的访问路径，后者仅跟 `package` 定义有关。
+- 譬如上述的 `app/proto/share.proto` 文件，定义为 `package egg;`，所以对应的访问方式：
+  - `yield ctx.grpc.egg.share.showCase.echo(data, meta, options)`
+  - `new app.grpcProto.egg.share.Status({ code: 200 })`
+  - `new app.grpcProto.egg.share.ShowCase(adress)`
+
+### 命名转换规则
+
+- [Protobuff Style Guide](https://developers.google.com/protocol-buffers/docs/style)
+- [GRPC Concepts](http://www.grpc.io/docs/guides/concepts.html)
+
+| 术语          | 命名规范(proto 定义) | 加载后                       |
+| ----------- | -------------- | ------------------------- |
+| **package** | 小写，用 `.` 分隔    | 若存在 `_`，则驼峰               |
+| **service** | 类名风格，首字母大写     | 初始化到 `ctx` 后为驼峰格式         |
+| **rpc**     | 类名风格，首字母大写     | 驼峰格式                      |
+| **message** | 类名风格，首字母大写     | 按原格式挂载在 `app.grpcProto` 上 |
+| **field**   | 下划线风格，全小写      | 驼峰格式                      |
+| **enums**   | 下划线风格，全大写      | 不变                        |
+
+
+## 示例
+
+参见 [grpc.tests.js](test/grpc.tests.js).
+
+## 问题反馈
+
+访问并发起 [issue](https://github.com/eggjs/egg/issues).
 
 ## License
 
