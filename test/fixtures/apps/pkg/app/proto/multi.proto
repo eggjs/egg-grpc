@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+package egg.multi;
+
+service One {
+  rpc ListOne(Status) returns (Status) {}
+}
+
+service Two {
+  rpc ListTwo(Status) returns (Status) {}
+}
+
+message Status {}
+

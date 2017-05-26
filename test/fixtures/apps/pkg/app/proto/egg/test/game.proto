@@ -1,0 +1,9 @@
+syntax = "proto3";
+
+import "message.proto";
+
+package egg.test;
+
+service GameInfoService {
+  rpc ListAll(GameId) returns (GameInfoList) {}
+}

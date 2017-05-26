@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+package egg.test;
+
+message GameId {
+  string id = 1;
+}
+
+message GameInfoList {
+  repeated string list = 1;
+}

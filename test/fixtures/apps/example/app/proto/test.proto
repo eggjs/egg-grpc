@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+package example;
+
+service Test {
+  rpc Echo (TestRequest) returns (TestResponse) {}
+  rpc EchoTimeout (TestRequest) returns (TestResponse) {}
+  rpc EchoError (TestRequest) returns (TestResponse) {}
+  rpc EchoClientStream (stream TestRequest) returns (TestResponse) {}
+  rpc EchoServerStream (TestRequest) returns (stream TestResponse) {}
+  rpc EchoStreamStream (stream TestRequest) returns (stream TestResponse) {}
+  rpc EchoComplex (ComplexItem) returns (ComplexItem) {}
+}
+
+message TestRequest {
+  int32 id = 1;
+  string user_name = 2;
+}
+
+message TestResponse {
+  int32 id = 1;
+  string msg = 2;
+  TestRequest origin_request = 3;
+  map<string, string> origin_meta = 4;
+}
+
+message ComplexItem {
+  repeated TestRequest list = 1;
+  map<string, TestRequest> mapping = 2;
+}
