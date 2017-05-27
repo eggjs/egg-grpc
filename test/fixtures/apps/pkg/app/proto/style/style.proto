@@ -1,0 +1,39 @@
+syntax = "proto3";
+
+package style;
+
+service TestService {
+  rpc PascalCase(Item) returns (Item) {}
+  rpc snake_case(Item) returns (Item) {}
+  rpc camelCase(Item) returns (Item) {}
+  rpc CONSTANT_CASE(Item) returns (Item) {}
+  rpc UPPERCASE(Item) returns (Item) {}
+}
+
+service PascalCaseService {}
+service snake_case_service {}
+service camelCaseService {}
+service CONSTANT_CASE_SERVICE {}
+service UPPERCASESERVICE {}
+
+message PascalCaseMessage {}
+message snake_case_message {}
+message camelCaseMessage {}
+message CONSTANT_CASE_MESSAGE {}
+message UPPERCASEMESSAGE {}
+
+message Item {
+  string PascalField = 1;
+  string snake_field = 2;
+  string camelField = 3;
+  string CONSTANT_CASE = 4;
+  string UPPERCASE = 5;
+}
+
+enum Collect {
+  PascalField = 0;
+  snake_field = 1;
+  camelField = 2;
+  CONSTANT_CASE = 3;
+  UPPERCASE = 4;
+}

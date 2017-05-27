@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+package egg;
+
+message Status {
+  string code = 1;
+  string err_msg = 2;
+}
+
+service ShowCase {
+  rpc Echo(Status) returns (Status) {}
+}
