@@ -97,6 +97,7 @@ console.log(result);
   - `yield ctx.grpc.egg.share.showCase.echo(data, meta, options)`
   - `new app.grpcProto.egg.share.Status({ code: 200 })`
   - `new app.grpcProto.egg.share.ShowCase(adress)`
+  - `new ctx.grpcProto.egg.share.ShowCase(adress)`
 
 ### Name Conversion
 
@@ -112,6 +113,99 @@ console.log(result);
 | **field**   | snake_case         | camleCase                          |
 | **enums**   | CONSTANT_CASE      | CONSTANT_CASE                      |
 
+## API
+
+### Custom Options
+
+- {Number} `timeout` - for convenient usage of `deadline`, equals to `{ deadline: Date.now() + timeout }`
+
+### Service && Message
+
+You can get service instance and invoke rpc by `ctx.mypackage.myService.myRpc({ id: 1 })`.
+
+Usually, you don't need to instantiate a message instace, grpc will do it for you, however you can create it by `new app.grpcProto.mypackage.SomeMessage({ id: 1 })`.
+
+### Unary RPC
+
+```js
+/**
+ * Unary RPC, such as `rpc Echo(Request) returns (Response) {}`
+ * @param {Object} data - data sent to sever
+ * @param {Object|grpc.Metadata} [metadata] - metadata, support plain object
+ * @param {Object} [options] - { timeout }
+ * @return {Promise} response promise chain
+ * @see http://www.grpc.io/docs/guides/concepts.html#unary-rpc
+ */
+// const client = ctx.grpc.<package>.<service>;
+yield client.echo(data, metadata, options);
+```
+
+### Client Streaming RPC
+
+```js
+/**
+ * Client Streaming RPC, such as `rpc EchoClientStream(stream Request) returns (Response) {}`
+ * @param {Object|grpc.Metadata} [metadata] - metadata, support plain object
+ * @param {Object} [options] - { timeout }
+ * @param {Function} [callback] - callback for response, `(err, response) => {}`
+ * @return {Stream} write stream
+ * @see http://www.grpc.io/docs/guides/concepts.html#client-streaming-rpc
+ */
+const stream = client.echoClientStream(meta, options, callback);
+// const stream = client.echoClientStream(callback);
+// const stream = client.echoClientStream(meta, callback);
+// trigger order: metadata -> callback -> status
+stream.once('metadata', meta => {});
+stream.once('status', status => {});
+stream.on('error', status => {});
+// send data to server or end
+stream.write(data1);
+stream.write(data2);
+stream.end(data4);
+```
+
+### Server Streaming RPC
+
+```js
+/**
+ * Server Streaming RPC, such as `rpc EchoServerStream(Request) returns (stream Response) {}`
+ * @param {Object} data - data sent to sever
+ * @param {Object|grpc.Metadata} [metadata] - metadata, support plain object
+ * @param {Object} [options] - { timeout }
+ * @return {Stream} read stream
+ * @see http://www.grpc.io/docs/guides/concepts.html#server-streaming-rpc
+ */
+const stream = client.echoServerStream(data, meta, options);
+// trigger order: metadata -> data -> status -> end
+stream.on('data', response => {});
+stream.on('end', response => {});
+stream.once('metadata', meta => {});
+stream.once('status', status => {});
+stream.on('error', status => {});
+```
+
+### Bidirectional Streaming RPC
+
+```js
+/**
+ * Bidirectional Streaming RPC, such as `rpc echoStreamStream(stream Request) returns (stream Response) {}`
+ * @param {Object|grpc.Metadata} [metadata] - metadata, support plain object
+ * @param {Object} [options] - { timeout }
+ * @return {Stream} duplex stream
+ * @see http://www.grpc.io/docs/guides/concepts.html#bidirectional-streaming-rpc
+ */
+const stream = client.echoStreamStream(meta, options);
+// trigger order: metadata -> data -> status -> end
+stream.on('data', response => {});
+stream.on('end', () => {});
+stream.once('metadata', meta => {});
+stream.once('status', status => {});
+stream.on('error', status => {});
+// send data to server or end
+stream.write(data1);
+stream.write(data2);
+stream.end(data3);
+```
 
 ## Example
 

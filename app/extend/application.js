@@ -3,6 +3,12 @@
 const GrpcBaseClass = require('../../lib/base_grpc');
 
 module.exports = {
+
+  /**
+   * origin grpc proto, contains Service and Message
+   */
+  grpcProto: {},
+
   /**
    * provide to grpc loader
    */

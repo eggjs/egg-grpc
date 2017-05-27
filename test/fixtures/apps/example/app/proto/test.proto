@@ -10,6 +10,7 @@ service Test {
   rpc EchoServerStream (TestRequest) returns (stream TestResponse) {}
   rpc EchoStreamStream (stream TestRequest) returns (stream TestResponse) {}
   rpc EchoComplex (ComplexItem) returns (ComplexItem) {}
+  rpc EchoUnimplemented (TestRequest) returns (TestResponse) {}
 }
 
 message TestRequest {

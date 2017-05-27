@@ -62,6 +62,16 @@ describe('test/grpc.test.js', () => {
     }
   });
 
+  it('should throw when rpc not exist', function* () {
+    try {
+      yield client.echoUnimplemented({ id: 1 });
+      throw ('should not exec here');
+    } catch (err) {
+      assert(err.code === grpc.status.UNIMPLEMENTED);
+      assert(err.message.includes('The server does not implement this method'));
+    }
+  });
+
   it('should echo with message instance', function* () {
     const TestRequest = app.grpcProto.example.TestRequest;
     const data = new TestRequest({ id: 1 });
