@@ -96,8 +96,8 @@ console.log(result);
 - such as `app/proto/share.proto`, it defined as `package egg;`, so will visit as
   - `yield ctx.grpc.egg.share.showCase.echo(data, meta, options)`
   - `new app.grpcProto.egg.share.Status({ code: 200 })`
-  - `new app.grpcProto.egg.share.ShowCase(adress)`
-  - `new ctx.grpcProto.egg.share.ShowCase(adress)`
+  - `new app.grpcProto.egg.share.ShowCase(address)`
+  - `new ctx.grpcProto.egg.share.ShowCase(address)`
 
 ### Name Conversion
 
@@ -138,6 +138,7 @@ Usually, you don't need to instantiate a message instace, grpc will do it for yo
  */
 // const client = ctx.grpc.<package>.<service>;
 yield client.echo(data, metadata, options);
+yield client.echo(data, options);
 ```
 
 ### Client Streaming RPC

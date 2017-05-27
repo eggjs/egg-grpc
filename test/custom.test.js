@@ -3,7 +3,6 @@
 const mm = require('egg-mock');
 const path = require('path');
 const assert = require('assert');
-const grpc = require('grpc');
 
 describe('test/custom.test.js', () => {
   let server;

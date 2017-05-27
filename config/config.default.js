@@ -9,6 +9,7 @@
  * @property {Boolean} loadOpts.convertFieldsToCamelCase - default to true, `string user_name` -> `userName`
  * @property {Object} clientOpts - options pass to `new Client(host, credentials, opts)`
  * @property {String} endpoint - default andress to connect, for debug or showcase purpose
+ * @property {Number} timeout - default 5000ms
  */
 exports.grpc = {
   dir: 'app/proto',
@@ -18,5 +19,5 @@ exports.grpc = {
   },
   clientOpts: {},
   endpoint: 'localhost:50051',
-  timeout: undefined,
+  timeout: 5000,
 };

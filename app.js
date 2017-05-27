@@ -1,6 +1,5 @@
 'use strict';
 
-const grpc = require('grpc');
 const loader = require('./lib/grpc_loader');
 
 module.exports = app => {
