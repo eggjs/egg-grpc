@@ -2,9 +2,10 @@
 
 module.exports = app => {
   return class CustomGrpcClass extends app.GrpcBaseClass {
-    _invokeUnaryRequest(client, rpc, data, metadata, options) {
-      metadata.set('request-id', this.config.caller + '_' + Date.now());
-      return super._invokeUnaryRequest(client, rpc, data, metadata, options);
+    _beforeRequest(invokeArgs) {
+      invokeArgs = super._beforeRequest(invokeArgs);
+      invokeArgs.metadata.set('request-id', this.config.caller + '_' + Date.now());
+      return invokeArgs;
     }
   };
 };
