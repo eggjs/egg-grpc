@@ -69,7 +69,7 @@ app/proto
 // app/proto/share.proto
 syntax = "proto3";
 
-package egg;
+package egg.share;
 
 message Status {
   string code = 1;
@@ -84,6 +84,7 @@ service ShowCase {
 快速开始:
 
 ```js
+// 仅跟 `package` 定义有关，跟 proto 文件路径无关。
 const client = ctx.grpc.egg.share.showCase;
 const result = yield client.echo({ code: 200 });
 console.log(result);

@@ -69,7 +69,7 @@ app/proto
 // app/proto/share.proto
 syntax = "proto3";
 
-package egg;
+package egg.share;
 
 message Status {
   string code = 1;
@@ -84,6 +84,7 @@ service ShowCase {
 quickstart:
 
 ```js
+// mount by `package` define, not proto file path
 const client = ctx.grpc.egg.share.showCase;
 const result = yield client.echo({ code: 200 });
 console.log(result);
