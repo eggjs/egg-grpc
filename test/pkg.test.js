@@ -23,7 +23,7 @@ describe('test/pkg.test.js', () => {
     // check proto
     const testProto = app.grpcProto.egg.test;
     assert(testProto.GameInfoList.name === 'Message');
-    assert(testProto.GameInfoService.name === 'Client');
+    assert(testProto.GameInfoService.name === 'Client' || testProto.GameInfoService.name === 'ServiceClient');
     assert(testProto.GameInfoService.service.listAll);
 
     // don't care your real path
