@@ -1,4 +1,9 @@
 
+1.0.2 / 2017-07-30
+==================
+
+  * fix: should allow override when import same proto (#8)
+
 1.0.1 / 2017-06-29
 ==================
 
