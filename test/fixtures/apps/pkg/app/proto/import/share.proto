@@ -1,0 +1,10 @@
+syntax = "proto3";
+
+package share;
+
+service Utils {
+  rpc List(Status) returns (Status) {}
+}
+
+message Status {}
+

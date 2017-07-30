@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+package test;
+
+import "share.proto";
+
+service Two {
+  rpc List(Status) returns (Status) {}
+}
+
+message Status {}
+

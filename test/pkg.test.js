@@ -34,6 +34,11 @@ describe('test/pkg.test.js', () => {
     // multi
     assert(ctx.grpc.egg.multi.one.listOne);
     assert(ctx.grpc.egg.multi.two.listTwo);
+
+    // import
+    assert(ctx.grpc.test.one.list);
+    assert(ctx.grpc.test.two.list);
+    assert(ctx.grpc.share.utils.list);
   });
 
   it('should process case style at `ctx.grpc`', () => {
