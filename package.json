@@ -1,6 +1,6 @@
 {
   "name": "egg-grpc",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "grpc plugin for egg",
   "eggPlugin": {
     "name": "grpc"
