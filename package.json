@@ -12,19 +12,19 @@
     "grpc"
   ],
   "dependencies": {
-    "debug": "^2.6.8",
+    "debug": "^3.0.1",
     "extend2": "^1.0.0",
     "grpc": "^1.4.1",
     "traverse": "^0.6.6"
   },
   "devDependencies": {
-    "autod": "^2.8.0",
-    "egg": "^1.6.1",
-    "egg-bin": "^4.0.5",
+    "autod": "^2.9.0",
+    "egg": "^1.7.0",
+    "egg-bin": "^4.1.0",
     "egg-ci": "^1.8.0",
-    "egg-mock": "^3.8.0",
-    "eslint": "^4.3.0",
-    "eslint-config-egg": "^5.0.0",
+    "egg-mock": "^3.9.1",
+    "eslint": "^4.5.0",
+    "eslint-config-egg": "^5.1.0",
     "pedding": "^1.1.0",
     "webstorm-disable-index": "^1.2.0"
   },
