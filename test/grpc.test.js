@@ -41,6 +41,13 @@ describe('test/grpc.test.js', () => {
     assert(result.originRequest.userName === 'grpc');
   });
 
+  it('should not reuse options when init client', function* () {
+    let response = yield app.httpRequest().get('/echo');
+    assert(response.body.originMeta['user-agent'].match(/grpc-node\/\d+\./g).length === 1);
+    response = yield app.httpRequest().get('/echo');
+    assert(response.body.originMeta['user-agent'].match(/grpc-node\/\d+\./g).length === 1);
+  });
+
   it('should echoError', function* () {
     try {
       yield client.echoError({ id: 1, userName: 'grpc' });
