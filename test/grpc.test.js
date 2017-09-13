@@ -158,4 +158,32 @@ describe('test/grpc.test.js', () => {
       },
     });
   });
+
+  it('should set x-real-ip and x-real-port', function* () {
+    const result = yield client.echo({ id: 1, userName: 'grpc' });
+
+    assert.ok(typeof result.originMeta['x-real-ip'] === 'string');
+    assert.ok(typeof result.originMeta['x-real-port'] === 'string');
+  });
+
+  it('should set x-real-ip and x-real-port with request', function* () {
+    const response = yield app.httpRequest()
+      .get('/echo')
+      .set('X-Real-IP', '123.123.123.123')
+      .set('X-Real-Port', 6789)
+      .expect(200);
+
+    assert(response.body.originMeta['x-real-ip'] === '123.123.123.123');
+    assert(response.body.originMeta['x-real-port'] === '6789');
+  });
+
+  it('should x-real-ip and x-real-port can not be covered', function* () {
+    const result = yield client.echo({ id: 1, userName: 'grpc' }, {
+      'x-real-ip': '123.123.123.123',
+      'x-real-port': '6789',
+    }, {});
+
+    assert.ok(result.originMeta['x-real-ip'] !== '123.123.123.123');
+    assert.ok(result.originMeta['x-real-port'] !== '6789');
+  });
 });
