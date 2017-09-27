@@ -135,5 +135,26 @@ module.exports = (host = 'localhost:50051') => {
 };
 
 if (require.main === module) {
-  module.exports(process.argv[2]);
+  const server = module.exports(process.argv[2]);
+  process.once('disconnect', () => {
+    // wait a loop for SIGTERM event happen
+    setImmediate(() => {
+      // if disconnect event emit, maybe master exit in accident
+      server.tryShutdown();
+      console.error('receive disconnect event on child_process fork mode, exiting with code:110');
+      process.exit(110);
+    });
+  });
+
+  process.once('SIGTERM', () => {
+    console.info('receive signal SIGTERM, exiting with code:0');
+    server.tryShutdown();
+    process.exit(0);
+  });
+
+  process.once('exit', code => {
+    const level = code === 0 ? 'info' : 'error';
+    console[level]('exit with code:%s', code);
+    server.tryShutdown();
+  });
 }
