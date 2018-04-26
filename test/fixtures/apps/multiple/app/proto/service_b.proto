@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package example;
+
+service ServiceB {
+  rpc Echo (TestRequest) returns (TestResponse) {}
+}
+
+message TestRequest {
+  int32 id = 1;
+  string user_name = 2;
+}
+
+message TestResponse {
+  int32 id = 1;
+  string msg = 2;
+  TestRequest origin_request = 3;
+  map<string, string> origin_meta = 4;
+}
