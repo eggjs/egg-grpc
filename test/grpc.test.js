@@ -57,7 +57,6 @@ describe('test/grpc.test.js', () => {
       assert(err.message.includes('this is an error'));
       assert.deepEqual(err.metadata.getMap(), { from: 'server' });
       // adjust error stack
-      assert(err.stack.includes('Grpc Error: this is an error'));
       assert(err.stack.includes('GrpcSubClass._invokeUnaryRequest'));
     }
   });
