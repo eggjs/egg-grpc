@@ -25,14 +25,14 @@
 ## Install
 
 ```bash
-$ npm i egg-grpc --save
+$ npm i egg-grpc-ssl --save
 ```
 
 ```js
 // {app_root}/config/plugin.js
 exports.grpc = {
   enable: true,
-  package: 'egg-grpc',
+  package: 'egg-grpc-ssl',
 };
 ```
 
@@ -45,6 +45,15 @@ exports.grpc = {
   // dir: 'app/proto', // proto files dir, relative path
   // property: 'grpc', // default attach to `ctx.grpc.**`
   // loadOpts: { convertFieldsToCamelCase: true, }, // message field case: `string user_name` -> `userName`
+  // clientSsl: {
+      // enable: false,
+      // grpc.credentials.createSsl
+      // rootCerts: 'config/cert/server.crt',
+      // options: {
+        //  "grpc.ssl_target_name_override": 'example.server',
+        // "grpc.default_authority": 'example.server'
+      // }
+    // }
 };
 ```
 
@@ -211,11 +220,11 @@ stream.end(data3);
 
 ## Example
 
-see [grpc.tests.js](test/grpc.tests.js).
+see [test/grpc.tests.js](test/grpc.tests.js).
 
 ## Questions & Suggestions
 
-Please open an issue [here](https://github.com/eggjs/egg/issues).
+Please open an issue [here](https://github.com/xdxiaodong/egg-grpc/issues).
 
 ## License
 

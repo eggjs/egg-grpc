@@ -1,6 +1,6 @@
 {
-  "name": "egg-grpc",
-  "version": "1.0.3",
+  "name": "egg-grpc-ssl",
+  "version": "1.0.4",
   "description": "grpc plugin for egg",
   "eggPlugin": {
     "name": "grpc"
@@ -50,12 +50,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/eggjs/egg-grpc.git"
+    "url": "git+https://github.com/xdxiaodong/egg-grpc.git"
   },
   "bugs": {
-    "url": "https://github.com/eggjs/egg/issues"
+    "url": "https://github.com/xdxiaodong/egg-grpc/issues"
   },
-  "homepage": "https://github.com/eggjs/egg-grpc#readme",
-  "author": "TZ <atian25@qq.com>",
+  "homepage": "https://github.com/xdxiaodong/egg-grpc#readme",
+  "author": "xiaodong <yunfei_vip@qq.com>",
   "license": "MIT"
 }

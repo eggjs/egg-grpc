@@ -25,14 +25,14 @@
 ## 安装
 
 ```bash
-$ npm i egg-grpc --save
+$ npm i egg-grpc-ssl --save
 ```
 
 ```js
 // {app_root}/config/plugin.js
 exports.grpc = {
   enable: true,
-  package: 'egg-grpc',
+  package: 'egg-grpc-ssl',
 };
 ```
 
@@ -45,6 +45,15 @@ exports.grpc = {
   // dir: 'app/proto', // proto 文件目录，相对路径
   // property: 'grpc', // 默认挂载到 `ctx.grpc.**`
   // loadOpts: { convertFieldsToCamelCase: true, }, // message field case: `string user_name` -> `userName`
+  // clientSsl: {
+      // enable: false,
+      // grpc.credentials.createSsl
+      // rootCerts: 'config/cert/server.crt',
+      // options: {
+        //  "grpc.ssl_target_name_override": 'example.server',
+        // "grpc.default_authority": 'example.server'
+      // }
+    // }
 };
 ```
 
@@ -211,11 +220,11 @@ stream.end(data3);
 
 ## 示例
 
-参见 [grpc.tests.js](test/grpc.tests.js).
+参见 [test/grpc.tests.js](test/grpc.tests.js).
 
 ## 问题反馈
 
-访问并发起 [issue](https://github.com/eggjs/egg/issues).
+访问并发起 [issue](https://github.com/xdxiaodong/egg-grpc/issues).
 
 ## License
 

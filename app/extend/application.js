@@ -1,6 +1,7 @@
 'use strict';
 
 const GrpcBaseClass = require('../../lib/base_grpc');
+const GRPC = Symbol('Application#grpc');
 
 module.exports = {
 
@@ -36,4 +37,11 @@ module.exports = {
   get GrpcBaseClass() {
     return GrpcBaseClass;
   },
+  get grpc() {
+    // this 就是 app 对象，在其中可以调用 app 上的其他方法，或访问属性
+    if (!this[GRPC]) {
+      this[GRPC] = { clientSsl: { rootCerts: null, privateKey: null, certChain: null } }
+    }
+    return this[GRPC];
+  }
 };
