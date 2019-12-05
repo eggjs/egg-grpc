@@ -41,19 +41,23 @@ exports.grpc = {
 ```js
 // {app_root}/config/config.default.js
 exports.grpc = {
-  endpoint: 'localhost:50051',
-  // dir: 'app/proto', // proto files dir, relative path
-  // property: 'grpc', // default attach to `ctx.grpc.**`
-  // loadOpts: { convertFieldsToCamelCase: true, }, // message field case: `string user_name` -> `userName`
-  // clientSsl: {
-      // enable: false,
-      // grpc.credentials.createSsl
-      // rootCerts: 'config/cert/server.crt',
-      // options: {
-        //  "grpc.ssl_target_name_override": 'example.server',
-        // "grpc.default_authority": 'example.server'
-      // }
-    // }
+  clients: {
+    grpc1: {
+      property: 'grpc1', // default attach to `ctx.grpc.**`
+      endpoint: 'localhost:50051',
+      // dir: 'app/proto', // proto files dir, relative path
+      // loadOpts: { convertFieldsToCamelCase: true }, // message field case: `string user_name` -> `userName`
+      clientSsl: {
+        enable: false,
+        // grpc.credentials.createSsl
+        rootCerts: 'config/cert/server.crt',
+        options: {
+          'grpc.ssl_target_name_override': 'example.server',
+          'grpc.default_authority': 'example.server',
+        },
+      },
+    },
+  },
 };
 ```
 
