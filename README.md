@@ -211,7 +211,7 @@ stream.end(data3);
 
 ## Example
 
-see [grpc.tests.js](test/grpc.tests.js).
+see [grpc.tests.js](test/grpc.test.js).
 
 ## Questions & Suggestions
 
