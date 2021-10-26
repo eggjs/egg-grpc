@@ -211,7 +211,7 @@ stream.end(data3);
 
 ## 示例
 
-参见 [grpc.tests.js](test/grpc.tests.js).
+参见 [grpc.test.js](test/grpc.test.js).
 
 ## 问题反馈
 
